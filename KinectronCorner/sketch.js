@@ -11,10 +11,14 @@ let mouseMode = false;
 let kinectron = null;
 
 //visualization of joints
-let vizHipLeft;
-let vizTipRight;
-let vizKneeRight;
+let vizHead;
 let vizElbowLeft;
+let vizElbowRight;
+let vizWristLeft;
+let vizWristRight;
+let vizHipLeft;
+let vizKneeRight;
+let vizSpineMid;
 
 let hipLeftHandTipRightDistance = 0;
 
@@ -50,12 +54,25 @@ let nextAngle = 90;
 let padding = 100; //distance btw tip of the corner to the edges
 let easing = 10;
 
+//-------------------colored shapes---------------
+let tri, rectangle, purple, pink, orange, greeen, cyan, body;
+
+function preload() {
+  tri = loadImage('img/triangle.png');
+  rectangle = loadImage('img/rect.png');
+  purple = loadImage('img/purple.png');
+  pink = loadImage('img/pink.png');
+  orange = loadImage('img/orange.png');
+  greeen = loadImage('img/green.png');
+  cyan = loadImage('img/cyan.png');
+  body = loadImage('img/body.png');
+}
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
   // Define and create an instance of kinectron
-  // kinectron = new Kinectron("10.18.68.35");
+  // kinectron = new Kinectron("10.18.81.225");
   kinectron = new Kinectron("10.17.201.104");
 
   // Connect with application over peer
@@ -103,17 +120,17 @@ function draw() {
   }
 
   //get tipRight for controlling next location of corner
-  let nextLocationX = width/2,
-      nextLocationY = height/2;
+  let nextLocationX = width / 2,
+    nextLocationY = height / 2;
   if (!mouseMode) {
-    if (vizTipRight) {
-      nextLocationX = vizTipRight.x;
-      nextLocationY = vizTipRight.y;
-    }
+    // if (vizTipRight) {
+    //   nextLocationX = vizTipRight.x;
+    //   nextLocationY = vizTipRight.y;
+    // }
   } else {
 
   }
-  
+
   //the actual drawing
   background(0, 5);
 
@@ -125,7 +142,7 @@ function draw() {
 
     nextDirection += 37;
     nextAngle = random(30, 150);
-    console.log(vizTipRight);
+    // console.log(vizTipRight);
   }
 
   //move corner
@@ -133,8 +150,8 @@ function draw() {
   corner1.velocity = nextLocation1.sub(corner1.location);
   let currentVelMag1 = corner1.velocity.mag();
   corner1.velocity.setMag(currentVelMag1 / easing);
-  
-  
+
+
   let nextLocation2 = createVector(nextLocationX1, nextLocationY1);
   corner2.velocity = nextLocation2.sub(corner1.location);
   let currentVelMag2 = corner1.velocity.mag();
@@ -149,8 +166,42 @@ function draw() {
   let aSpeed1 = nextAngle - corner1.angle;
   corner2.angleChange = aSpeed1 / easing;
 
-  corner1.update();
-  corner2.update();
+  // corner1.update();
+  // corner2.update();
+  // console.log(vizTipRight);
+  if (vizHead) {
+    image(tri, vizHead.x, vizHead.y, 50, 50);
+  }
+
+  if (vizElbowLeft) {
+    image(rectangle, vizElbowLeft.x, vizElbowLeft.y, 50, 50);
+  }
+
+  if (vizElbowRight) {
+    image(purple, vizElbowRight.x, vizElbowRight.y, 50, 50);
+  }
+  if (vizWristLeft) {
+    image(pink, vizWristLeft.x, vizWristLeft.y, 50, 50);
+
+  }
+  if (vizWristRight) {
+    image(orange, vizWristRight.x, vizWristRight.y, 50, 50);
+
+  }
+  if (vizHipLeft) {
+
+    image(greeen, vizHipLeft.x, vizHipLeft.y, 50, 50);
+  }
+  if (vizKneeRight) {
+
+    image(cyan, vizKneeRight.x, vizKneeRight.y, 50, 50);
+
+  }
+  if (vizSpineMid) {
+
+    image(body, vizSpineMid.x, vizSpineMid.y, 50, 50);
+  }
+
 
 }
 
@@ -203,10 +254,15 @@ function bodyTracked(body) {
   let end = hipLeft;
   hipLeftHandTipRightDistance = dist(start.x, start.y, end.x, end.y);
 
-  vizTipRight = handTipRight;
+  vizHead = head;
+  vizElbowLeft = elbowLeft;
+  vizElbowRight = elbowRight;
+  vizWristLeft = wristLeft;
+  vizWristRight = wristRight;
   vizHipLeft = hipLeft;
   vizKneeRight = kneeRight;
-  vizElbowLeft = elbowLeft;
+  vizSpineMid = spineMid;
+  // vizElbowLeft = elbowLeft;
   // print(vizTipRight);
 
 
