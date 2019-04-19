@@ -5,6 +5,8 @@ by Mingna, Allie, Ning, Yuguang
 
 //toggle of mouse mode
 let mouseMode = false;
+let IsOneShape = false;
+let hideAll = false;
 
 //----------------------------Kinectron Stuff-------------------
 // Declare kinectron
@@ -56,6 +58,9 @@ let easing = 10;
 
 //-------------------colored shapes---------------
 let tri, rectangle, purple, pink, orange, greeen, cyan, body;
+
+//-------------------snapshots--------------------
+let snapshots = [];
 
 function preload() {
   tri = loadImage('img/triangle.png');
@@ -169,39 +174,45 @@ function draw() {
   // corner1.update();
   // corner2.update();
   // console.log(vizTipRight);
-  if (vizHead) {
-    image(tri, vizHead.x, vizHead.y, 50, 50);
+
+  if (!hideAll) {
+    if (vizElbowRight) {
+      image(purple, vizElbowRight.x, vizElbowRight.y, 50, 50);
+    }
+
+    if (!IsOneShape) {
+      if (vizHead) {
+        image(tri, vizHead.x, vizHead.y, 50, 50);
+      }
+
+      if (vizElbowLeft) {
+        image(rectangle, vizElbowLeft.x, vizElbowLeft.y, 50, 50);
+      }
+
+
+      if (vizWristLeft) {
+        image(pink, vizWristLeft.x, vizWristLeft.y, 50, 50);
+
+      }
+      if (vizWristRight) {
+        image(orange, vizWristRight.x, vizWristRight.y, 50, 50);
+
+      }
+      if (vizHipLeft) {
+
+        image(greeen, vizHipLeft.x, vizHipLeft.y, 50, 50);
+      }
+      if (vizKneeRight) {
+
+        image(cyan, vizKneeRight.x, vizKneeRight.y, 50, 50);
+
+      }
+      if (vizSpineMid) {
+
+        image(body, vizSpineMid.x, vizSpineMid.y, 50, 50);
+      }
+    }
   }
-
-  if (vizElbowLeft) {
-    image(rectangle, vizElbowLeft.x, vizElbowLeft.y, 50, 50);
-  }
-
-  if (vizElbowRight) {
-    image(purple, vizElbowRight.x, vizElbowRight.y, 50, 50);
-  }
-  if (vizWristLeft) {
-    image(pink, vizWristLeft.x, vizWristLeft.y, 50, 50);
-
-  }
-  if (vizWristRight) {
-    image(orange, vizWristRight.x, vizWristRight.y, 50, 50);
-
-  }
-  if (vizHipLeft) {
-
-    image(greeen, vizHipLeft.x, vizHipLeft.y, 50, 50);
-  }
-  if (vizKneeRight) {
-
-    image(cyan, vizKneeRight.x, vizKneeRight.y, 50, 50);
-
-  }
-  if (vizSpineMid) {
-
-    image(body, vizSpineMid.x, vizSpineMid.y, 50, 50);
-  }
-
 
 }
 
@@ -306,4 +317,15 @@ function drawJoint(joint) {
   // stroke(255);
   // strokeWeight(5);
   point(pos.x, pos.y);
+}
+
+function keyPressed() {
+  if (keyCode === 32) {
+    //space key control number of shapes shown
+    IsOneShape = !IsOneShape;
+  }
+
+  if (keyCode === ENTER) {
+    hideAll = !hideAll;
+  }
 }
