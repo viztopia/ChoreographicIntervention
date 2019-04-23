@@ -44,7 +44,7 @@ function draw() {
   //then we think they have "contacted"
   if (ds.length >=2){
     if (ds[0] + ds[1] <= dThreshold){
-      //draw ripple at center
+      //draw ripple at center avgCenter.x, avgCenter.y
       //Mingna's code here
     }
   }
