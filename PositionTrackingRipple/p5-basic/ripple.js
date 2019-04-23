@@ -116,7 +116,7 @@ function setupOsc(oscPortIn, oscPortOut) {
   });
 }
 
-function drawRipple(){
+function drawRipple(x, y){
  //Mingna can add code here to draw ripples according to the x, y
 
 }
