@@ -77,8 +77,8 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
 
   // Define and create an instance of kinectron
-  // kinectron = new Kinectron("10.18.81.225");
-  kinectron = new Kinectron("10.17.201.104");
+  kinectron = new Kinectron("10.18.160.87");
+  // kinectron = new Kinectron("10.17.201.104");
 
   // Connect with application over peer
   kinectron.makeConnection();
