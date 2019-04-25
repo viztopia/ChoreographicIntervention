@@ -17,6 +17,9 @@ let startMoving = false;
 let starsNum = 200;
 let counter = 0;
 
+//space key to turn on/off drawing
+let rippleSwitch = false;
+
 
 
 function setup() {
@@ -56,21 +59,25 @@ function draw() {
     ds.push(d);
   }
   // Sort distances in ascending order
-  ds.sort(function (a, b) { return a < b; });
+  ds.sort(function (a, b) {
+    return a < b;
+  });
 
   //if the distance between the two blobs to their center is smaller than a threshold
   //then we think they have "contacted"
   //if (ds.length >= 2) {
-    // console.log("two people!");
-    // console.log(ds);
-    //if (ds[0] <= dThreshold) {
-      //draw ripple at center avgCenter.x, avgCenter.y
-      //console.log("contacted!");
-      if (positions.length == 1 && frameCount % 300 == 0) {
-        console.log("contacted");
-        drawRipple(avgCenter.x, avgCenter.y);
-      }
-    //}
+  // console.log("two people!");
+  // console.log(ds);
+  //if (ds[0] <= dThreshold) {
+  //draw ripple at center avgCenter.x, avgCenter.y
+  //console.log("contacted!");
+  if (positions.length == 1 && frameCount % 300 == 0) {
+    console.log("contacted");
+    if (rippleSwitch) {
+      drawRipple(avgCenter.x, avgCenter.y);
+    }
+  }
+  //}
   //}
 
 
@@ -121,10 +128,10 @@ function draw() {
 
   }
 
-    // Draw all the blob positions for testing purposes
+  // Draw all the blob positions for testing purposes
   // for (let pos of positions) {
-    fill('red');
-    //ellipse(avgCenter.x, avgCenter.y, 50, 50);
+  fill('red');
+  //ellipse(avgCenter.x, avgCenter.y, 50, 50);
   // }
 
 }
@@ -200,4 +207,16 @@ function drawRipple(x, y) {
   starArray.push(newStarArray)
   // console.log(starArray);
 
+}
+
+
+function keyPressed() {
+  if (keyCode === 32) {
+    rippleSwitch = !rippleSwitch;
+    if (rippleSwitch) {
+      console.log("switch on");
+    } else {
+      console.log("switch off");
+    }
+  }
 }
