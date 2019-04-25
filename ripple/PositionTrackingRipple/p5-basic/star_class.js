@@ -6,7 +6,7 @@ class Star {
     this.xdir = random(-2, 2);
     this.ydir = random(-2, 2);
     this.s = random(3, 40);
-    this.meow = random(10, 200)
+    this.meow = random(10, 500)
     this.r = random(0, 255)
     this.g = random(0, 255)
     this.b = random(0, 255)
@@ -32,6 +32,29 @@ class Star {
     if (this.xdir > 0 && this.ydir < 0) {
       if (this.x > width - this.meow || this.y < this.meow) {
         this.xdir -= 0.5
+        this.ydir += 0.5
+        if (this.xdir <= 0 || this.ydir >= 0) {
+          this.xdir = 0;
+          this.ydir = 0;
+        }
+      }
+    }
+
+
+    if (this.xdir < 0 && this.ydir > 0) {
+      if (this.x < this.meow || this.y > height - this.meow) {
+        this.xdir += 0.5
+        this.ydir -= 0.5
+        if (this.xdir <= 0 || this.ydir >= 0) {
+          this.xdir = 0;
+          this.ydir = 0;
+        }
+      }
+    }
+
+    if (this.xdir < 0 && this.ydir < 0) {
+      if (this.x < this.meow || this.y < this.meow) {
+        this.xdir += 0.5
         this.ydir += 0.5
         if (this.xdir <= 0 || this.ydir >= 0) {
           this.xdir = 0;
